@@ -1,10 +1,12 @@
-package com.springboot.blog.springbootblogrestapi;
+package com.springboot.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+
+@SpringBootApplication
+@EntityScan(basePackages = {"com.springboot.blog"})
 public class SpringbootBlogRestApiApplication {
 
 	public static void main(String[] args) {
