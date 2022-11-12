@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 //Hibernate internally uses proxies to generate objects
+//Entity represents a table in the relational database and each entity instance corresponds to the row in the table
 @Entity
 @Table(
         name="posts",uniqueConstraints = {@UniqueConstraint(columnNames={"title"})}
