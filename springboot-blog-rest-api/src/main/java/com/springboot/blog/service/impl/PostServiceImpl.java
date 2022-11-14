@@ -44,12 +44,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAllPost(int pageNo,int  pageSize,String sortBy) {
+    public PostResponse getAllPost(int pageNo,int  pageSize,String sortBy,String sortDir) {
         //create a pageable instance
         //Pageable represents the set of pages to be printed given the pageNo and pageSize. Pageable object returns the total number of pages in the set.
         //This of method now supports both pagination and sorting
-        //for descending order you can do Sort.by(sortBy).descending()
-        Pageable pageable=PageRequest.of(pageNo,pageSize, Sort.by(sortBy));
+        //for descending order you can do Sort.by(sortBy).descending
+
+        Sort sort=sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Pageable pageable=PageRequest.of(pageNo,pageSize, sort);
 
         Page<Post> posts=postRepository.findAll(pageable);
 
