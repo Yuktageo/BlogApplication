@@ -9,6 +9,7 @@ import com.springboot.blog.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,11 +44,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAllPost(int pageNo,int  pageSize) {
+    public PostResponse getAllPost(int pageNo,int  pageSize,String sortBy) {
         //create a pageable instance
         //Pageable represents the set of pages to be printed given the pageNo and pageSize. Pageable object returns the total number of pages in the set.
-
-        Pageable pageable=PageRequest.of(pageNo,pageSize);
+        //This of method now supports both pagination and sorting
+        //for descending order you can do Sort.by(sortBy).descending()
+        Pageable pageable=PageRequest.of(pageNo,pageSize, Sort.by(sortBy));
 
         Page<Post> posts=postRepository.findAll(pageable);
 
