@@ -57,6 +57,7 @@ public class CommentServiceImpl implements CommentService {
         return commentList.stream().map(comment->mapToDto(comment)).collect(Collectors.toList());
     }
 
+
     @Override
     public CommentDto getCommentById(long postId, long commentId) {
         //get the post by id
@@ -97,6 +98,25 @@ public class CommentServiceImpl implements CommentService {
         }
 
        return mapToDto(commentFromEntity);
+    }
+
+    @Override
+    public void deleteCommentById(long postId, long commentId) {
+
+        Post postFromEntity=postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("post","id",postId));
+
+        //get the comment by id
+
+        Comment commentFromEntity=commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("comment","id",commentId));
+
+
+        if(Objects.equals(commentFromEntity.getPost().getId(), postFromEntity.getId())){
+            commentRepository.delete(commentFromEntity);
+        }else {
+            throw  new BlogApiException(HttpStatus.BAD_REQUEST,"Comment do not belong to this post");
+        }
+
+
     }
 
     private CommentDto mapToDto(Comment comment){
