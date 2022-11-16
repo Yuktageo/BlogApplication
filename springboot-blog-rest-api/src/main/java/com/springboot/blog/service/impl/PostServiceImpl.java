@@ -63,9 +63,11 @@ public class PostServiceImpl implements PostService {
 
         List<Post> listOfPosts=posts.getContent();
 
-        PostResponse postResponse=new PostResponse();
 
-        List<PostDto> content=listOfPosts.stream().map(this::mapToDto).collect(Collectors.toList());
+
+        List<PostDto> content=listOfPosts.stream().map(post->mapToDto(post)).collect(Collectors.toList());
+
+        PostResponse postResponse=new PostResponse();
         postResponse.setContent(content);
         postResponse.setPageNo(posts.getNumber());
         postResponse.setPageSize(posts.getSize());
