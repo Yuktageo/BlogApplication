@@ -41,7 +41,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+
     //Customize the validation response and for that you need to extend ResponseEntityExceptionHandler  and you need to override handlemethodArgumentNotValid
+    //Here you are overriding handleMethodArgumentNotValidException
+    //Here you are creating the map and for each of the field on which you have applied Validation AND STORING THE NAME AND VALIDATION ERROR
+    //Get all the error from exception object and keep all the exception in map...getAllError() returns list of error and you write a lambda expression to iterate through each
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
